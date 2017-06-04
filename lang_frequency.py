@@ -1,18 +1,18 @@
-import requests
 from collections import Counter
 import string
+import argparse
 
 
+# Загрузка файла
 def load_data(filepath):
     with open(filepath, 'r', encoding='utf-8') as file:
         file = str(file.read().lower())
         a = string.punctuation + '—«»'
-        print(a)
-        print(string.punctuation)
         translator = str.maketrans('', '', a)
         return file.translate(translator).split()
 
 
+# Счетчик слов
 def get_most_frequent_words(text):
     counter = Counter(text)
     print('Самые популярные слова:')
@@ -23,5 +23,12 @@ def get_most_frequent_words(text):
 
 
 if __name__ == '__main__':
-    text_file = load_data('text.txt')
-    get_most_frequent_words(text_file)
+    parser = argparse.ArgumentParser(description='File path')
+    parser.add_argument('--path', type=str)
+    args = parser.parse_args()
+    text_file = load_data(args.path)
+    if text_file:
+        get_most_frequent_words(text_file)
+    else:
+        print('Can\'t find file')
+
