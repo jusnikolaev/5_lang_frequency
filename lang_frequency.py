@@ -5,11 +5,11 @@ import argparse
 
 # Загрузка файла
 def load_data(filepath):
-    with open(filepath, 'r', encoding='utf-8') as file:
-        file = str(file.read().lower())
+    with open(filepath, 'r', encoding='utf-8') as text_file:
+        text_file = str(text_file.read().lower())
         a = string.punctuation + '—«»'
         translator = str.maketrans('', '', a)
-        return file.translate(translator).split()
+        return text_file.translate(translator).split()
 
 
 # Счетчик слов
