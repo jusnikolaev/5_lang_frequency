@@ -1,34 +1,42 @@
 from collections import Counter
 import string
+import os
 import argparse
 
 
-# Загрузка файла
-def load_data(filepath):
-    with open(filepath, 'r', encoding='utf-8') as text_file:
-        text_file = str(text_file.read().lower())
-        a = string.punctuation + '—«»'
-        translator = str.maketrans('', '', a)
-        return text_file.translate(translator).split()
+def load_data(file_path):
+    if not os.path.exists(file_path):
+        return False
+    with open(file_path) as file:
+        text = file.read()
+        return text
 
 
-# Счетчик слов
+def delete_punctuation(text):
+    punctuation_symbols = string.punctuation + '—«»'
+    clear_text = str.maketrans('','', punctuation_symbols)
+    return text.translate(clear_text).split()
+
+
 def get_most_frequent_words(text):
     counter = Counter(text)
-    print('Самые популярные слова:')
-    for item_number, item in enumerate(counter.most_common()):
-        popular_words = counter.most_common()[item_number]
-        print('{} -> {}'.format(popular_words[0],
-                                popular_words[1]))
+    popular_words = counter.most_common()
+    return popular_words
+
+
+def show_word(popular_words):
+    for word, words in enumerate(popular_words):
+        print('{} -> {}'.format(popular_words[word][0], popular_words[word][1]))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='File path')
     parser.add_argument('--path', type=str)
     args = parser.parse_args()
-    text_file = load_data(args.path)
-    if text_file:
-        get_most_frequent_words(text_file)
+    original_file = load_data(args.path)
+    if original_file:
+        clear_text = delete_punctuation(original_file)
+        show_word(get_most_frequent_words(clear_text))
     else:
         print('Can\'t find file')
 
