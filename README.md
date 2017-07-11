@@ -12,19 +12,23 @@ In terminal:
 </pre>
 
 #Example
-
 <pre>
     <code>
         $python3 --path "/Users/user/text.txt"
     </code>
 </pre>
 
+#Answer
 <pre>
     <code>
-        word_1 -> 5
-        word_2 -> 2
-        word_3 -> 2
-        word_4 -> 1
+        hello -> 5
+        bye -> 2
+        table -> 2
+        telegram -> 1
+        beer -> 1
+        beers -> 1
+
+        e.t.c.
     </code>
 </pre>
 
