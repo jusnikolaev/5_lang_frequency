@@ -7,7 +7,7 @@ import argparse
 def load_data(file_path):
     if not os.path.exists(file_path):
         print('No such file in directory')
-        return False
+        return None
     else:
         with open(file_path) as file:
             text_file = file.read()
