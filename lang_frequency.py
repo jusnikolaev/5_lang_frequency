@@ -27,7 +27,7 @@ def delete_punctuation(text):
 def get_most_frequent_words(list_of_words, limit_of_words):
     counter = Counter(list_of_words)
     popular_words = counter.most_common()
-    return popular_words[0:limit_of_words]
+    return popular_words[:limit_of_words]
 
 
 def show_word(popular_words):
@@ -40,8 +40,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='File path')
     parser.add_argument('--path', type=str)
     args = parser.parse_args()
+
+    output_words_limit = 9
     if valiate_path(args.path):
         file_with_text = load_data(args.path)
         text_without_punctation = delete_punctuation(file_with_text)
-        show_word(get_most_frequent_words(text_without_punctation, 9))
+        show_word(get_most_frequent_words(text_without_punctation, output_words_limit))
 
